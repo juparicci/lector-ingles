@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/icons/icon-192.png" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#14110f" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Lector" />
+    <title>Lector — Inglés</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="topbar">
+        <button class="icon-btn nav-back hidden" id="nav-back" aria-label="Volver">←</button>
+        <h1 class="app-title" id="view-title">Lector</h1>
+        <nav class="tabbar" id="tabbar">
+          <button class="tab-btn" data-view="library" aria-label="Biblioteca">📚</button>
+          <button class="tab-btn" data-view="vocabulary" aria-label="Vocabulario">🗂</button>
+        </nav>
+      </header>
+      <main id="view-root"></main>
+    </div>
+  </body>
+  <script type="module" src="/src/main.js"></script>
+</html>

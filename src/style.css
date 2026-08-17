@@ -1,0 +1,606 @@
+:root {
+  --ink-950: #0d0c0a;
+  --ink-900: #14110f;
+  --ink-800: #1c1815;
+  --ink-700: #262019;
+  --ink-600: #362e24;
+  --ink-500: #4a3f30;
+  --paper: #e8e0d0;
+  --paper-dim: #a89c86;
+  --gold: #d4af37;
+  --gold-bright: #f0cc5c;
+  --gold-dim: rgba(212, 175, 55, 0.28);
+  --error: #e07856;
+  --success: #7fb069;
+  --font-serif: Georgia, 'Iowan Old Style', 'Palatino Linotype', 'Times New Roman', serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--ink-950);
+  color: var(--paper);
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+}
+
+/* ---------- Topbar ---------- */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: calc(0.75rem + var(--safe-top)) 1rem 0.75rem;
+  background: var(--ink-900);
+  border-bottom: 1px solid var(--ink-700);
+  flex-shrink: 0;
+}
+
+.app-title {
+  flex: 1;
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--paper);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tabbar {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.tabbar.hidden {
+  display: none;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  color: var(--paper-dim);
+  transition: background 0.15s, color 0.15s;
+}
+
+.tab-btn.active {
+  background: var(--gold-dim);
+  color: var(--gold-bright);
+}
+
+.icon-btn {
+  background: var(--ink-800);
+  border: 1px solid var(--ink-600);
+  color: var(--paper);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 0.6rem;
+  cursor: pointer;
+}
+
+.icon-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.icon-btn.hidden {
+  display: none;
+}
+
+#nav-back {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: var(--paper);
+  padding: 0.2rem 0.4rem;
+}
+
+/* ---------- Layout ---------- */
+
+#view-root {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: var(--safe-bottom);
+}
+
+.empty-state {
+  color: var(--paper-dim);
+  text-align: center;
+  padding: 3rem 1.5rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* ---------- Library ---------- */
+
+.library-view {
+  padding: 1rem;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.import-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--gold);
+  color: var(--ink-950);
+  font-weight: 600;
+  padding: 0.9rem;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.import-status {
+  text-align: center;
+  color: var(--gold-bright);
+  margin-bottom: 1rem;
+}
+
+.import-status.hidden {
+  display: none;
+}
+
+.book-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.book-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--ink-900);
+  border: 1px solid var(--ink-700);
+  border-radius: 0.8rem;
+  padding: 0.9rem 1rem;
+  cursor: pointer;
+}
+
+.book-card-title {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.book-card-meta {
+  color: var(--paper-dim);
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+}
+
+.book-delete-btn {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  color: var(--paper-dim);
+  cursor: pointer;
+  padding: 0.4rem;
+}
+
+/* ---------- Reader ---------- */
+
+.reader-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.reader-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--ink-800);
+}
+
+.font-controls {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.freq-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--paper-dim);
+  margin-left: auto;
+}
+
+.page-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem 1.25rem 2rem;
+  max-width: 680px;
+  margin: 0 auto;
+  width: 100%;
+  font-family: var(--font-serif);
+  line-height: 1.75;
+  color: var(--paper);
+}
+
+.page-content p,
+.page-content li {
+  margin: 0 0 1.1em;
+}
+
+.page-content h1,
+.page-content h2,
+.page-content h3,
+.page-content h4,
+.page-content h5,
+.page-content h6 {
+  font-family: var(--font-serif);
+  color: var(--gold-bright);
+  margin: 1.4em 0 0.7em;
+}
+
+.word {
+  cursor: pointer;
+  border-radius: 0.2em;
+  transition: background 0.15s;
+}
+
+.word:hover,
+.word-active {
+  background: var(--gold-dim);
+}
+
+.word-saved {
+  border-bottom: 2px solid var(--gold);
+}
+
+.word-common {
+  opacity: 0.6;
+}
+
+.reader-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--ink-800);
+}
+
+.page-indicator {
+  color: var(--paper-dim);
+  font-size: 0.85rem;
+}
+
+/* ---------- Translation popup ---------- */
+
+.translate-popup {
+  position: fixed;
+  z-index: 100;
+  background: var(--ink-800);
+  border: 1px solid var(--gold-dim);
+  border-radius: 0.7rem;
+  padding: 0.75rem 0.9rem;
+  max-width: min(300px, calc(100vw - 16px));
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.translate-popup.hidden {
+  display: none;
+}
+
+.popup-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.popup-word {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--gold-bright);
+}
+
+.popup-speak-btn {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.popup-loading {
+  color: var(--paper-dim);
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+}
+
+.popup-error {
+  color: var(--error);
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+}
+
+.popup-translation {
+  margin-top: 0.35rem;
+  font-size: 1rem;
+}
+
+.popup-save-btn {
+  margin-top: 0.6rem;
+  width: 100%;
+  background: var(--gold);
+  color: var(--ink-950);
+  border: none;
+  font-weight: 600;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.popup-save-btn:disabled {
+  background: var(--ink-600);
+  color: var(--success);
+  cursor: default;
+}
+
+/* ---------- Vocabulary ---------- */
+
+.vocab-view {
+  padding: 1rem;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.subtabs {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+  overflow-x: auto;
+}
+
+.subtab-btn {
+  background: var(--ink-900);
+  border: 1px solid var(--ink-700);
+  color: var(--paper-dim);
+  padding: 0.5rem 0.9rem;
+  border-radius: 2rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.subtab-btn.active {
+  background: var(--gold-dim);
+  color: var(--gold-bright);
+  border-color: var(--gold-dim);
+}
+
+.vocab-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.75rem;
+}
+
+.export-btn {
+  background: var(--ink-800);
+  border: 1px solid var(--ink-600);
+  color: var(--paper);
+  padding: 0.5rem 0.8rem;
+  border-radius: 0.6rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.vocab-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.vocab-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  background: var(--ink-900);
+  border: 1px solid var(--ink-700);
+  border-radius: 0.8rem;
+  padding: 0.8rem 1rem;
+}
+
+.vocab-item-word {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.vocab-due-badge {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  background: var(--gold-dim);
+  color: var(--gold-bright);
+  padding: 0.15rem 0.5rem;
+  border-radius: 1rem;
+}
+
+.vocab-item-translation {
+  color: var(--gold-bright);
+  margin-top: 0.15rem;
+}
+
+.vocab-item-context {
+  color: var(--paper-dim);
+  font-size: 0.85rem;
+  font-style: italic;
+  margin-top: 0.3rem;
+}
+
+.vocab-item-meta {
+  color: var(--paper-dim);
+  font-size: 0.7rem;
+  margin-top: 0.4rem;
+}
+
+.vocab-item-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.vocab-speak-btn,
+.vocab-delete-btn {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: var(--paper-dim);
+}
+
+/* ---------- Review / Quiz ---------- */
+
+.review-progress,
+.quiz-progress {
+  text-align: center;
+  color: var(--paper-dim);
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.review-card,
+.quiz-box {
+  background: var(--ink-900);
+  border: 1px solid var(--ink-700);
+  border-radius: 1rem;
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+.review-word,
+.quiz-word {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--gold-bright);
+  margin-bottom: 0.75rem;
+}
+
+.review-speak-btn {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.review-answer.hidden,
+.quiz-answer.hidden,
+.review-reveal-btn.hidden,
+.quiz-reveal-btn.hidden,
+.review-grade-buttons.hidden,
+.quiz-next-btn.hidden {
+  display: none;
+}
+
+.review-translation,
+.quiz-answer {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.review-context {
+  color: var(--paper-dim);
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.review-reveal-btn,
+.quiz-reveal-btn,
+.quiz-next-btn {
+  background: var(--gold);
+  color: var(--ink-950);
+  border: none;
+  font-weight: 600;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.review-grade-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.review-grade-btn {
+  flex: 1;
+  border: none;
+  padding: 0.6rem;
+  border-radius: 0.6rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.grade-again {
+  background: var(--error);
+  color: var(--ink-950);
+}
+
+.grade-good {
+  background: var(--gold);
+  color: var(--ink-950);
+}
+
+.grade-easy {
+  background: var(--success);
+  color: var(--ink-950);
+}
+
+.quiz-title {
+  font-size: 0.9rem;
+  color: var(--paper-dim);
+  margin-bottom: 0.5rem;
+}
+
+/* ---------- Larger screens (Surface Pro etc.) ---------- */
+
+@media (min-width: 900px) {
+  .page-content {
+    font-size: 110%;
+    padding-top: 2.5rem;
+  }
+
+  .book-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+}

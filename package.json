@@ -1,0 +1,20 @@
+{
+  "name": "app-para-ingles",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^8.2.0",
+    "vite-plugin-pwa": "^1.3.0"
+  },
+  "dependencies": {
+    "idb": "^8.0.3",
+    "jszip": "^3.10.1",
+    "pdfjs-dist": "^6.2.108"
+  }
+}
